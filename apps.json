@@ -1249,6 +1249,21 @@
       {"name":"activepedom.app.js","url":"app.js"}
     ]
   },
+  { "id": "agps",
+    "name": "Assisted GPS",
+    "shortName":"Assisted GPS",
+    "icon": "gps.png",
+    "version":"0.01",
+    "description": "Assisted GPS",
+    "tags": "tool,gps",
+    "storage": [
+      {"name":"agps.app.js","url":"app.js"},
+      {"name":"agps.boot.js","url":"boot.js"},
+      {"name":"agps.gps-db-snapshot.js","url":"gps-db-snapshot.js"},
+      {"name":"agps.settings.js","url":"settings.js"},
+      {"name":"agps.img","url":"icon.js","evaluate":true}
+    ]
+  },
   { "id": "chronowid",
     "name": "Chrono Widget",
     "shortName":"Chrono Widget",
