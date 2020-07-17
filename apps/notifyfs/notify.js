@@ -1,11 +1,13 @@
 var pos = 0;
 var oldg;
+var id = null;
 
 /**
  options = {
    on : bool // turn screen on, default true
    size : int // height of notification, default 120 (max)
    title : string // optional title
+   id // optional notification ID, used with hide()
    src : string // optional source name
    body : string // optional body text
    icon : string // optional icon (image string)
@@ -16,6 +18,7 @@ exports.show = function(options) {
   if (oldg) g=oldg;
   options = options||{};
   if (options.on===undefined) options.on=true;
+  id = ("id" in options)?options.id:null;
   var h = options.size||120;
   Bangle.setLCDMode("direct");
   var y = 40;
@@ -65,7 +68,7 @@ exports.show = function(options) {
     g.setColor(-1).setFont("6x8", 2).setFontAlign(-1, -1, 0).drawString(body, x-4, y+4);
   }
 
-  if (options.render) options.render(320 - h);
+  if (options.render) options.render(120-h/2);
 
   if (options.on) Bangle.setLCDPower(1); // light up
   Bangle.on("touch", exports.hide);
@@ -75,7 +78,15 @@ exports.show = function(options) {
   g.flip = function() {};
 };
 
-exports.hide = function() {
+/**
+ options = {
+   id // optional, only hide if current notification has this ID
+ }
+ */
+exports.hide = function(options) {
+  options = options||{};
+  if ("id" in options && options.id!==id) return;
+  id = null;
   g=oldg;
   oldg = undefined;
   Bangle.removeListener("touch", exports.hide);
